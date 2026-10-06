@@ -4,6 +4,7 @@ import Lenis from 'lenis'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
+import ReadAloud from '@/components/ReadAloud'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 
 /**
@@ -51,6 +52,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <ReadAloud />
     </div>
   )
 }

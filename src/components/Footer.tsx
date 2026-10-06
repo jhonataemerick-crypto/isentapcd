@@ -11,6 +11,9 @@ const NAV = [
   { to: '/sobre', label: 'Quem somos' },
   { to: '/transparencia', label: 'Transparência' },
   { to: '/roadmap', label: 'Roadmap' },
+  { to: '/lojas', label: 'Lojas parceiras' },
+  { to: '/parceiros', label: 'Seja uma loja parceira' },
+  { to: '/pocinhos', label: 'IsentaPCD em Poçinhos' },
 ]
 
 const GUIA = [
