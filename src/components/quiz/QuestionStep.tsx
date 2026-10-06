@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, HelpCircle, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Check, HelpCircle, ArrowLeft, ArrowRight, Volume2 } from 'lucide-react'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 import { UF_OPTIONS, type QuizStep } from './tree'
@@ -91,6 +91,26 @@ export default function QuestionStep({
         </legend>
         {step.hint && (
           <p className="mt-2 text-center text-small text-txt-2">{step.hint}</p>
+        )}
+        {/* Leitura da pergunta em voz alta (quem não sabe ler ouve) */}
+        {'speechSynthesis' in window && (
+          <div className="mt-1 text-center">
+            <button
+              type="button"
+              onClick={() => {
+                window.speechSynthesis.cancel()
+                const opcoes = step.options?.map((o) => o.label).join('. ') ?? ''
+                const texto = `${step.question}. ${step.hint ?? ''}. Opções: ${opcoes}`
+                const u = new SpeechSynthesisUtterance(texto)
+                u.lang = 'pt-BR'
+                window.speechSynthesis.speak(u)
+              }}
+              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-line px-4 text-small font-medium text-txt-2 transition-colors hover:border-accent hover:text-accent"
+            >
+              <Volume2 className="h-4 w-4" aria-hidden="true" />
+              Ouvir a pergunta
+            </button>
+          </div>
         )}
         {step.why && (
           <div className="mt-2 text-center">
