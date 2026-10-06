@@ -23,6 +23,42 @@ import TrustBadge from '@/components/TrustBadge'
 import { useReducedMotion } from '@/hooks/useReducedMotion'
 import { cn } from '@/lib/utils'
 import { toTrustLevel } from '@/components/simulador/helpers'
+import { Store } from 'lucide-react'
+
+/** Bloco "lojas parceiras na sua UF" — rede de seminovos com benefício PCD. */
+function LojasParceirasBloco({ uf }: { uf: string }) {
+  const lojas = trpc.partners.list.useQuery({ uf: uf as never })
+  if (!lojas.isSuccess || lojas.data.length === 0) return null
+  return (
+    <section
+      aria-label="Lojas parceiras no seu estado"
+      className="rounded-card border border-line bg-surface p-6 text-left"
+    >
+      <h3 className="flex items-center gap-2 text-h3 font-medium text-txt">
+        <Store className="h-5 w-5 text-accent" aria-hidden="true" />
+        Lojas parceiras com benefício PCD em {uf}
+      </h3>
+      <p className="mt-1 text-small text-txt-2">
+        Seminovo não tem IPI/ICMS, mas tem IPVA isento — e estas lojas dão um benefício extra:
+      </p>
+      <ul className="mt-3 flex flex-col gap-2">
+        {lojas.data.slice(0, 3).map((l) => (
+          <li key={l.id} className="rounded-input border border-line bg-bg-alt/50 px-4 py-3">
+            <p className="text-small font-bold text-txt">{l.loja} · {l.cidade}</p>
+            <p className="text-small text-txt-2">🎁 {l.beneficio}</p>
+          </li>
+        ))}
+      </ul>
+      <Link
+        to={`/lojas?uf=${uf}`}
+        className="mt-3 inline-flex min-h-[44px] items-center gap-2 text-small font-bold text-accent underline underline-offset-4"
+      >
+        Ver todas em {uf}
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </Link>
+    </section>
+  )
+}
 import { BAND_PRICE, type QuizRecord } from './tree'
 
 interface ResultViewProps {
@@ -249,6 +285,9 @@ export default function ResultView({ result, answers }: ResultViewProps) {
         <CountdownChip size="sm" context="regras atuais até 31/12/2026" />
       </div>
 
+      {/* Lojas parceiras da UF (rede de seminovos) */}
+      {answers.uf && <LojasParceirasBloco uf={answers.uf} />}
+
       {/* CTAs por variante */}
       {result.status === 'nao_elegivel' ? (
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -272,10 +311,10 @@ export default function ResultView({ result, answers }: ResultViewProps) {
       ) : (
         <div className="flex flex-col gap-3">
           <Link
-            to="/app/pagamento"
+            to="/registro"
             className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-btn bg-accent px-6 font-bold text-on-accent transition-all hover:bg-accent-hover hover:shadow-amber-glow active:scale-[0.98]"
           >
-            Quero o acompanhamento completo (R$ 497)
+            Criar conta grátis e ver meu mapa
             <ArrowRight className="h-5 w-5" aria-hidden="true" />
           </Link>
           <div className="flex flex-col gap-3 sm:flex-row">
