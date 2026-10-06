@@ -13,6 +13,9 @@ import Privacidade from '@/pages/Privacidade'
 import Contato from '@/pages/Contato'
 import Simulador from '@/pages/Simulador'
 import PreAnalise from '@/pages/PreAnalise'
+import Parceiros from '@/pages/Parceiros'
+import Lojas from '@/pages/Lojas'
+import Pocinhos from '@/pages/Pocinhos'
 import AppShell from '@/components/app/AppShell'
 import Dashboard from '@/pages/app/Dashboard'
 import Mapa from '@/pages/app/Mapa'
@@ -27,6 +30,7 @@ import AdminProcessos from '@/pages/admin/AdminProcessos'
 import AdminRevisao from '@/pages/admin/AdminRevisao'
 import AdminPagamentos from '@/pages/admin/AdminPagamentos'
 import Historico from '@/pages/admin/Historico'
+import AdminLojas from '@/pages/admin/AdminLojas'
 import { RequireAuth } from '@/components/RequireAuth'
 
 export default function App() {
@@ -42,6 +46,9 @@ export default function App() {
       <Route path="/privacidade" element={<Layout><Privacidade /></Layout>} />
       <Route path="/contato" element={<Layout><Contato /></Layout>} />
       <Route path="/simulador" element={<Layout><Simulador /></Layout>} />
+      <Route path="/parceiros" element={<Layout><Parceiros /></Layout>} />
+      <Route path="/lojas" element={<Layout><Lojas /></Layout>} />
+      <Route path="/pocinhos" element={<Layout><Pocinhos /></Layout>} />
       {/* Quiz imersivo: sem navbar pública (foco total na conversão) */}
       <Route path="/pre-analise" element={<PreAnalise />} />
       <Route path="/entrar" element={<Layout><Entrar /></Layout>} />
@@ -64,6 +71,7 @@ export default function App() {
         <Route path="revisao" element={<AdminRevisao />} />
         <Route path="pagamentos" element={<AdminPagamentos />} />
         <Route path="historico" element={<Historico />} />
+        <Route path="lojas" element={<AdminLojas />} />
       </Route>
 
       {/* Fallback */}

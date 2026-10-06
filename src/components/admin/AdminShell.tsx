@@ -7,6 +7,7 @@ import {
   FileSearch,
   CreditCard,
   History,
+  Store,
   ExternalLink,
   Menu,
   X,
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
   { to: '/admin/processos', label: 'Processos', icon: Columns3, end: false },
   { to: '/admin/revisao', label: 'Revisão de documentos', icon: FileSearch, end: false },
   { to: '/admin/pagamentos', label: 'Pagamentos', icon: CreditCard, end: false },
+  { to: '/admin/lojas', label: 'Lojas parceiras', icon: Store, end: false },
   { to: '/admin/historico', label: 'Histórico', icon: History, end: false },
 ] as const
 

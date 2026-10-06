@@ -79,6 +79,26 @@ export const leads = mysqlTable(
   (t) => [index("leads_status_idx").on(t.status), index("leads_uf_idx").on(t.uf), index("leads_user_idx").on(t.userId)],
 );
 
+// ── partners (Rede de Lojas Parceiras — seminovos com benefício PCD) ────────
+export const partners = mysqlTable(
+  "partners",
+  {
+    id: serial("id").primaryKey(),
+    loja: varchar("loja", { length: 255 }).notNull(),
+    cidade: varchar("cidade", { length: 120 }).notNull(),
+    uf: char("uf", { length: 2 }).notNull(),
+    whatsapp: varchar("whatsapp", { length: 30 }).notNull(),
+    beneficio: varchar("beneficio", { length: 255 }).notNull(), // ex.: "R$ 1.500 de desconto + avaliação do usado na troca"
+    atendimentoAdaptado: boolean("atendimentoAdaptado").notNull().default(false),
+    lgpdConsent: boolean("lgpdConsent").notNull(),
+    status: mysqlEnum("status", ["pending", "approved", "rejected"]).notNull().default("pending"),
+    createdAt: timestamp("createdAt").defaultNow().notNull(),
+  },
+  (t) => [index("partners_uf_idx").on(t.uf), index("partners_status_idx").on(t.status)],
+);
+
+export type Partner = typeof partners.$inferSelect;
+
 export type Lead = typeof leads.$inferSelect;
 
 // ── profiles (cadastro multi-etapas) ───────────────────────────────────────
